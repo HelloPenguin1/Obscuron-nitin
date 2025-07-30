@@ -3,10 +3,10 @@ use arcium_anchor::prelude::*;
 
 const COMP_DEF_OFFSET_ADD_TOGETHER: u32 = comp_def_offset("add_together");
 
-declare_id!("2fg7v7H63Juxb2nNsFikefKRsq1wa3payooz86GYzTwV");
+declare_id!("C4vEkLNfosZ1DFp3muVywnYeJvbPxnV3zXdDpMuJ2F2d");
 
 #[arcium_program]
-pub mod arcium_mxe {
+pub mod bounty {
     use super::*;
 
     pub fn init_add_together_comp_def(ctx: Context<InitAddTogetherCompDef>) -> Result<()> {

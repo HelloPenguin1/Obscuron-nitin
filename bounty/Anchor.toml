@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-arcium_mxe = "2fg7v7H63Juxb2nNsFikefKRsq1wa3payooz86GYzTwV"
+bounty = "C4vEkLNfosZ1DFp3muVywnYeJvbPxnV3zXdDpMuJ2F2d"
 
 [registry]
 url = "https://api.apr.dev"
