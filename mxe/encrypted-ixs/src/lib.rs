@@ -4,15 +4,18 @@ use arcis_imports::*;
 mod circuits {
     use arcis_imports::*;
 
-    pub struct InputValues {
-        v1: u8,
-        v2: u8,
+    pub struct BountyInput {
+        effort: u8,
+        quality: u8,
+        length: u8,
     }
 
     #[instruction]
-    pub fn add_together(input_ctxt: Enc<Shared, InputValues>) -> Enc<Shared, u16> {
+    pub fn compute_bounty(input_ctxt: Enc<Shared, BountyInput>) -> Enc<Shared, u64> {
         let input = input_ctxt.to_arcis();
-        let sum = input.v1 as u16 + input.v2 as u16;
-        input_ctxt.owner.from_arcis(sum)
+        let bounty = (input.effort as u64 * 1_000_000)
+                   + (input.quality as u64 * 500_000)
+                   + (input.length as u64 * 200_000);
+        input_ctxt.owner.from_arcis(bounty)
     }
 }

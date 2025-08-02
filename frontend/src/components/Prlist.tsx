@@ -220,7 +220,7 @@ const Prlist = () => {
       </AnimatePresence>
       <ul className="max-w-2xl mx-auto w-full gap-4">
         {prs.length > 0 ? (
-          prs.map((pr, index) => (
+          prs.map((pr) => (
             <motion.div
               layoutId={`card-${pr.title}-${id}`}
               key={`card-${pr.title}-${id}`}
