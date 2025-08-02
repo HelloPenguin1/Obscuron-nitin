@@ -24,7 +24,7 @@ const Landing = () => {
     useTransform(scrollYProgress, [0.3, 1], [0, 1]),
     useTransform(scrollYProgress, [0.4, 1], [0, 1]),
   ]
- const myGlobeData: Position[] = [
+  const myGlobeData: Position[] = [
     { order: 1, startLat: 34.0522, startLng: -118.2437, endLat: 51.5074, endLng: 0.1278, arcAlt: 0.3, color: "#ff0000" },
     { order: 2, startLat: -33.8688, startLng: 151.2093, endLat: 35.6895, endLng: 139.6917, arcAlt: 0.4, color: "#00ff00" },
     { order: 3, startLat: 40.7128, startLng: -74.0060, endLat: 48.8566, endLng: 2.3522, arcAlt: 0.25, color: "#0000ff" }, // NYC to Paris
@@ -35,7 +35,7 @@ const Landing = () => {
   ];
 
   const myGlobeConfig: GlobeConfig = {
-    pointSize: 4,
+    pointSize: 2,
     globeColor: "#1d072e",
     showAtmosphere: true,
     atmosphereColor: "#ffffff",
@@ -50,8 +50,8 @@ const Landing = () => {
     pointLight: "#ffffff",
     arcTime: 2000,
     arcLength: 0.9,
-    rings: 6,
-    maxRings: 8,
+    rings: 3,
+    maxRings: 4,
     initialPosition: { lat: 28.6139, lng: 77.2090 },
     autoRotate: true,
     autoRotateSpeed: 1,
@@ -61,13 +61,12 @@ const Landing = () => {
     <>
       <Navbar />
       <div className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-        {/* Globe as a background element */}
         <div className="absolute inset-0 z-0">
           <World globeConfig={myGlobeConfig} data={myGlobeData} />
         </div>
 
         <BackgroundBeamsWithCollision className="absolute inset-0 z-10 bg-black/50">
-        <></>
+          <></>
         </BackgroundBeamsWithCollision>
         <Vortex
           backgroundColor="transparent"
@@ -84,14 +83,6 @@ const Landing = () => {
           </p>
         </Vortex>
       </div>
-
-      {/* The full-screen globe div here is redundant if you put it in the first section */}
-      {/* Remove or reposition this if you want the globe to be only in the first section */}
-      {/*
-      <div style={{ width: '100vw', height: '100vh', background: '#000' }}>
-        <World globeConfig={myGlobeConfig} data={myGlobeData} />
-      </div>
-      */}
 
       <section className="w-full flex justify-center items-center bg-black py-20 overflow-hidden">
         <ContainerScroll

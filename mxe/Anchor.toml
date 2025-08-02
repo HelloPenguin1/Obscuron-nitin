@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-bounty = "C4vEkLNfosZ1DFp3muVywnYeJvbPxnV3zXdDpMuJ2F2d"
+mxe = "FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3"
 
 [registry]
 url = "https://api.apr.dev"

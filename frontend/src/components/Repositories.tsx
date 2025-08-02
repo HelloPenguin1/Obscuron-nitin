@@ -91,7 +91,7 @@ const Repositories = () => {
   }));
 
   return (
-    <div className="bg- min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg- min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-6xl font-extrabold text-center text-white mb-8 leading-tight">
           Your <span className="text-blue-400">Repositories</span>

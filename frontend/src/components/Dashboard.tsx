@@ -77,7 +77,7 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
 
   if((code && authStatus === "Successful") || (!code && auth?.authStatus)) {
     return (
-      <div className="flex min-h-screen w-full text-white bg-neutral-800">
+      <div className="flex min-h-screen w-full text-white bg-[#0A0A0A]">
         <Sidebar open={open} setOpen={setOpen} animate={true}>
           <SidebarBody>
             <div className="py-4">

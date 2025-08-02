@@ -3,7 +3,8 @@ import { useEffect, useState, useId, useRef } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "./hooks/use-outside-click"; 
+import { useOutsideClick } from "./hooks/use-outside-click";
+import { Bounty } from "./bounty";
 
 export const CloseIcon = () => {
   return (
@@ -41,17 +42,18 @@ export const CloseIcon = () => {
 interface PrCard {
   title: string;
   description: string;
-  src: string; 
+  src: string;
   ctaText: string;
   ctaLink: string;
   content: () => JSX.Element;
-  prDetails: any; 
+  prDetails: any;
+  contributor: string;
 }
 
 const Prlist = () => {
   const { owner, name } = useParams();
   const [prs, setPrs] = useState<PrCard[]>([]);
-  const [active, setActive] = useState<PrCard | null>(null); 
+  const [active, setActive] = useState<PrCard | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
 
@@ -70,7 +72,7 @@ const Prlist = () => {
         const formattedPrs: PrCard[] = result.prs.map((pr: any) => ({
           title: pr.title,
           description: `PR by ${pr.user.login} on ${new Date(pr.created_at).toLocaleDateString()}`,
-          src: pr.user.avatar_url || "https://via.placeholder.com/100", 
+          src: pr.user.avatar_url || "https://via.placeholder.com/100",
           ctaText: "View PR",
           ctaLink: pr.html_url,
           content: () => (
@@ -87,11 +89,12 @@ const Prlist = () => {
               <p><a href={pr.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Go to GitHub PR</a></p>
             </div>
           ),
-          prDetails: pr, 
+          prDetails: pr,
+          contributor : pr.user.login
         }));
         setPrs(formattedPrs);
       }
-      catch(error) {
+      catch (error) {
         toast.error("Something went wrong");
         console.log(error);
       }
@@ -120,7 +123,7 @@ const Prlist = () => {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen bg-[#0A0A0A]">
       <h1 className="text-2xl font-bold mb-6 text-center">Pull Requests for {owner}/{name}</h1>
       <AnimatePresence>
         {active && (
@@ -154,6 +157,7 @@ const Prlist = () => {
               onClick={() => setActive(null)}
             >
               <CloseIcon />
+
             </motion.button>
             <motion.div
               layoutId={`card-${active.title}-${id}`}
@@ -248,16 +252,25 @@ const Prlist = () => {
                   </motion.p>
                 </div>
               </div>
-              <motion.button
-                layoutId={`button-${pr.title}-${id}`}
-                className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black mt-4 md:mt-0"
-                onClick={(e) => {
-                    e.stopPropagation(); 
+              <div className="flex gap-2 mt-4 md:mt-0">
+                <motion.button
+                  layoutId={`button-${pr.title}-${id}`}
+                  className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black"
+                  onClick={(e) => {
+                    e.stopPropagation();
                     window.open(pr.ctaLink, "_blank");
-                }}
-              >
-                {pr.ctaText}
-              </motion.button>
+                  }}
+                >
+                  {pr.ctaText}
+                </motion.button>
+                <span onClick={(e) => {
+                  e.stopPropagation()
+                }}>
+                  <Bounty contributor={pr.contributor}/>
+                </span>
+              </div>
+
+
             </motion.div>
           ))
         ) : (
