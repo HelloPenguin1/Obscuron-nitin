@@ -1,51 +1,151 @@
+use std::process::Output;
 
 use anchor_lang::prelude::*;
 use arcium_anchor::prelude::*;
 
+const COMP_DEF_OFFSET_BOUNTY: u32 = comp_def_offset("bounty");
 
-const COMP_DEF_OFFSET_COMPUTE_BOUNTY: u32 = comp_def_offset("compute_bounty");
-
-declare_id!("REPLACE_WITH_YOUR_PROGRAM_ID");
+declare_id!("FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3")
 
 #[arcium_program]
-pub mod github_bounty {
+pub mod computebounty {
     use super::*;
 
-    pub fn init_compute_bounty(ctx: Context<InitComputeBountyCompDef>) -> Result<()> {
-        init_comp_def(ctx.accounts, true, 0, None, None)?;
-        Ok(())
+    pub fn init_bounty_comp_def(ctx: Context<InitBountyCompDef>) -> Result<()> {
+        init_comp_def(ctx.accounts, true , 0, None, None)?;
+        Ok(());
     }
+}
 
-    pub fn compute_bounty(
-        ctx: Context<ComputeBounty>,
-        computation_offset: u64,
-        ciphertext_effort: [u8; 32],
-        ciphertext_quality: [u8; 32],
-        ciphertext_length: [u8; 32],
-        pub_key: [u8; 32],
-        nonce: u128,
-    ) -> Result<()> {
-        let args = vec![
-            Argument::EncryptedU8(ciphertext_effort),
-            Argument::EncryptedU8(ciphertext_quality),
-            Argument::EncryptedU8(ciphertext_length),
-            Argument::ArcisPubkey(pub_key),
-            Argument::PlaintextU128(nonce),
-        ];
-        queue_computation(ctx.accounts, computation_offset, args, vec![], None)?;
-        Ok(())
-    }
+pub fn bounty(
+    ctx: Context<Bounty>,
+    computation_offset: u64,
+    effort: [u8; 32],
+    quality: [u8; 32],
+    pub_key: [u8; 32],
+    nonce: u128,
+) -> Result<()> {
+    let args = vec![
+       Argument::ArcisPubkey(pub_key),
+       Argument::PlaintextU128(nonce),
+       Argument::EncryptedU8(effort),
+       Argument::EncryptedU8(quality),
+    ];
+    queue_computation(&ctx.accounts, computation_offset, args, vec![], None)?;
+    Ok(())
+}
 
-    #[arcium_callback(encrypted_ix = "compute_bounty")]
-    pub fn bounty_callback(ctx: Context<BountyCallback>, output: ComputationOutputs<BountyOutput>) -> Result<()> {
-        let o = match output {
-            ComputationOutputs::Success(BountyOutput { field_0 }) => field_0,
-            _ => return Err(ErrorCode::AbortedComputation.into()),
-        };
-        emit!(BountyEvent {
-            bounty: o.ciphertexts[0],
-            nonce: o.nonce.to_le_bytes(),
-        });
-        Ok(())
-    }
+#[arcium_callback(encrypted_ix = "bounty")]
+pub fn bounty_callback(
+    ctx: Context<BountyCallback>,
+    output: ComputationOutputs<BountyOutput>,
+) -> Result<()> {
+    let o = match output {
+        ComputationOutputs::Success(BountyOutput { field_0}) => field_0,
+        _ => return Err(ErrorCode::AbortedComputation.into()),
+    };
+
+    emit!(BountyEvent ( result: o ));
+
+    Ok(());
+}
+
+
+#[queue_computation_accounts("bounty", payer)]
+#[derive(Accounts)]
+#[instruction(computation_offset: u64)]
+pub struct Bounty<'info> {
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    #[account(
+        address = derive_mxe_pda!()
+    )]
+    pub mxe_account: Account<'info, MXEAccount>,
+    #[account(
+        mut,
+        address = derive_mempool_pda!()
+    )]
+    /// CHECK: mempool_account, checked by the arcium program
+    pub mempool_account: UncheckedAccount<'info>,
+    #[account(
+        mut,
+        address = derive_execpool_pda!()
+    )]
+    /// CHECK: executing_pool, checked by the arcium program
+    pub executing_pool: UncheckedAccount<'info>,
+    #[account(
+        mut,
+        address = derive_comp_pda!(computation_offset)
+    )]
+    /// CHECK: computation_account, checked by the arcium program.
+    pub computation_account: UncheckedAccount<'info>,
+    #[account(
+        address = derive_comp_def_pda!(COMP_DEF_OFFSET_BOUNTY)
+    )]
+    pub comp_def_account: Account<'info, ComputationDefinitionAccount>,
+    #[account(
+        mut,
+        address = derive_cluster_pda!(mxe_account)
+    )]
+    pub cluster_account: Account<'info, Cluster>,
+    #[account(
+        mut,
+        address = ARCIUM_FEE_POOL_ACCOUNT_ADDRESS,
+    )]
+    pub pool_account: Account<'info, FeePool>,
+    #[account(
+        address = ARCIUM_CLOCK_ACCOUNT_ADDRESS,
+    )]
+    pub clock_account: Account<'info, ClockAccount>,
+    pub system_program: Program<'info, System>,
+    pub arcium_program: Program<'info, Arcium>,
+}
+
+
+#[callback_accounts("bounty", payer)]
+#[derive(Accounts)]
+pub struct BountyCallback<'info> {
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    pub arcium_program: Program<'info, Arcium>,
+    #[account(
+        address = derive_comp_def_pda!(COMP_DEF_OFFSET_BOUNTY)
+    )]
+    pub comp_def_account: Account<'info, ComputationDefinitionAccount>,
+    #[account(address = ::anchor_lang::solana_program::sysvar::instructions::ID)]
+    /// CHECK: instructions_sysvar, checked by the account constraint
+    pub instructions_sysvar: AccountInfo<'info>,
+}
+
+#[init_computation_definition_accounts("bounty", payer)]
+#[derive(Accounts)]
+pub struct InitBountyCompDef<'info> {
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    #[account(
+        mut,
+        address = derive_mxe_pda!()
+    )]
+    pub mxe_account: Box<Account<'info, MXEAccount>>,
+    #[account(mut)]
+    /// CHECK: comp_def_account, checked by arcium program.
+    /// Can't check it here as it's not initialized yet.
+    pub comp_def_account: UncheckedAccount<'info>,
+    pub arcium_program: Program<'info, Arcium>,
+    pub system_program: Program<'info, System>,
+}
+
+/// Event emitted when a coin flip game completes.
+#[event]
+pub struct BountyEvent {
+    /// Whether the player won the coin flip (true = won, false = lost)
+    pub result: u32,
+}
+
+#[error_code]
+pub enum ErrorCode {
+    #[msg("The computation was aborted")]
+    AbortedComputation,
+    #[msg("The cluster is not set")]
+    ClusterNotSet,
 }

@@ -78,7 +78,7 @@ const Landing = () => {
             Obscuron
           </h1>
           <p className="text-gray-300 text-lg md:text-2xl max-w-2xl mt-6 text-center relative z-20">
-            Empower open source with <span className="text-purple-400">automated bounties</span> that reward meaningful
+            Empower open source with <span className="text-purple-400">Encrypted bounties</span> that reward meaningful
             contributions
           </p>
         </Vortex>
