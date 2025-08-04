@@ -1,22 +1,19 @@
-use std::process::Output;
-
 use anchor_lang::prelude::*;
 use arcium_anchor::prelude::*;
 
 const COMP_DEF_OFFSET_BOUNTY: u32 = comp_def_offset("bounty");
 
-declare_id!("FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3")
+declare_id!("FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3");
 
 #[arcium_program]
 pub mod computebounty {
     use super::*;
 
     pub fn init_bounty_comp_def(ctx: Context<InitBountyCompDef>) -> Result<()> {
-        init_comp_def(ctx.accounts, true , 0, None, None)?;
-        Ok(());
+        init_comp_def(ctx.accounts, true, 0, None, None)?;
+        Ok(())
     }
 }
-
 pub fn bounty(
     ctx: Context<Bounty>,
     computation_offset: u64,
@@ -25,13 +22,13 @@ pub fn bounty(
     pub_key: [u8; 32],
     nonce: u128,
 ) -> Result<()> {
-    let args = vec![
-       Argument::ArcisPubkey(pub_key),
-       Argument::PlaintextU128(nonce),
-       Argument::EncryptedU8(effort),
-       Argument::EncryptedU8(quality),
-    ];
-    queue_computation(&ctx.accounts, computation_offset, args, vec![], None)?;
+    let arg_pub_key = Argument::ArcisPubkey(pub_key);
+        let arg_nonce = Argument::PlaintextU128(nonce);
+        let arg_effort = Argument::EncryptedU8(effort);
+        let arg_quality = Argument::EncryptedU8(quality);
+
+        let args = vec![arg_pub_key, arg_nonce, arg_effort, arg_quality];
+    queue_computation(ctx.accounts, computation_offset, args, vec![], None)?;
     Ok(())
 }
 
@@ -41,15 +38,14 @@ pub fn bounty_callback(
     output: ComputationOutputs<BountyOutput>,
 ) -> Result<()> {
     let o = match output {
-        ComputationOutputs::Success(BountyOutput { field_0}) => field_0,
+        ComputationOutputs::Success(BountyOutput { field_0 }) => field_0,
         _ => return Err(ErrorCode::AbortedComputation.into()),
     };
 
-    emit!(BountyEvent ( result: o ));
+    emit!(BountyEvent { result: o.ciphertexts[0], nonce: o.nonce.to_le_bytes() });
 
-    Ok(());
+    Ok(())
 }
-
 
 #[queue_computation_accounts("bounty", payer)]
 #[derive(Accounts)]
@@ -101,7 +97,6 @@ pub struct Bounty<'info> {
     pub arcium_program: Program<'info, Arcium>,
 }
 
-
 #[callback_accounts("bounty", payer)]
 #[derive(Accounts)]
 pub struct BountyCallback<'info> {
@@ -135,11 +130,13 @@ pub struct InitBountyCompDef<'info> {
     pub system_program: Program<'info, System>,
 }
 
-/// Event emitted when a coin flip game completes.
+/// Event emitted when amount calculated.
 #[event]
 pub struct BountyEvent {
-    /// Whether the player won the coin flip (true = won, false = lost)
-    pub result: u32,
+    /// The computed bounty amount in ciphertext (32 bytes).
+    pub result: [u8; 32],
+    /// The nonce used for encryption.
+    pub nonce: [u8; 16],
 }
 
 #[error_code]
