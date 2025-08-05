@@ -66,7 +66,7 @@ export function Bounty({ onSubmit, contributor }: BountyProps) {
             setError("Scores must be between 0 and 10.")
             return
         }
-        // BountyHandle();
+        BountyHandle();
         onSubmit?.(effortScore, qualityScore)
         setIsOpen(false)
         setEffort("")

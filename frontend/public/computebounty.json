@@ -1,0 +1,216 @@
+{
+  "address": "FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3",
+  "metadata": {
+    "name": "computebounty",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Arcium & Anchor"
+  },
+  "instructions": [
+    {
+      "name": "init_bounty_comp_def",
+      "discriminator": [
+        107,
+        159,
+        160,
+        4,
+        163,
+        215,
+        84,
+        8
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mxe_account",
+          "writable": true
+        },
+        {
+          "name": "comp_def_account",
+          "docs": [
+            "Can't check it here as it's not initialized yet."
+          ],
+          "writable": true
+        },
+        {
+          "name": "arcium_program",
+          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "MXEAccount",
+      "discriminator": [
+        103,
+        26,
+        85,
+        250,
+        179,
+        159,
+        17,
+        117
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "BountyEvent",
+      "discriminator": [
+        98,
+        22,
+        45,
+        61,
+        141,
+        147,
+        17,
+        244
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AbortedComputation",
+      "msg": "The computation was aborted"
+    },
+    {
+      "code": 6001,
+      "name": "ClusterNotSet",
+      "msg": "The cluster is not set"
+    }
+  ],
+  "types": [
+    {
+      "name": "BountyEvent",
+      "docs": [
+        "Event emitted when amount calculated."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "result",
+            "docs": [
+              "The computed bounty amount in ciphertext (32 bytes)."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "nonce",
+            "docs": [
+              "The nonce used for encryption."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "MXEAccount",
+      "docs": [
+        "A MPC Execution Environment."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "cluster",
+            "type": {
+              "option": "u32"
+            }
+          },
+          {
+            "name": "x25519_pubkey",
+            "type": {
+              "defined": {
+                "name": "X25519Pubkey"
+              }
+            }
+          },
+          {
+            "name": "fallback_clusters",
+            "type": {
+              "vec": "u32"
+            }
+          },
+          {
+            "name": "rejected_clusters",
+            "type": {
+              "vec": "u32"
+            }
+          },
+          {
+            "name": "computation_definitions",
+            "type": {
+              "vec": "u32"
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "X25519Pubkey",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Set",
+            "fields": [
+              {
+                "array": [
+                  "u8",
+                  32
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Unset",
+            "fields": [
+              {
+                "array": [
+                  "u8",
+                  32
+                ]
+              },
+              {
+                "vec": "bool"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
