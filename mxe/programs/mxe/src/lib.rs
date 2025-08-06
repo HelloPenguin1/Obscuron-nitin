@@ -13,40 +13,42 @@ pub mod computebounty {
         init_comp_def(ctx.accounts, true, 0, None, None)?;
         Ok(())
     }
-}
-pub fn bounty(
-    ctx: Context<Bounty>,
-    computation_offset: u64,
-    effort: [u8; 32],
-    quality: [u8; 32],
-    pub_key: [u8; 32],
-    nonce: u128,
-) -> Result<()> {
-    let arg_pub_key = Argument::ArcisPubkey(pub_key);
+    pub fn bounty(
+        ctx: Context<Bounty>,
+        computation_offset: u64,
+        effort: [u8; 32],
+        quality: [u8; 32],
+        pub_key: [u8; 32],
+        nonce: u128,
+    ) -> Result<()> {
+        let arg_pub_key = Argument::ArcisPubkey(pub_key);
         let arg_nonce = Argument::PlaintextU128(nonce);
         let arg_effort = Argument::EncryptedU8(effort);
         let arg_quality = Argument::EncryptedU8(quality);
 
         let args = vec![arg_pub_key, arg_nonce, arg_effort, arg_quality];
-    queue_computation(ctx.accounts, computation_offset, args, vec![], None)?;
-    Ok(())
+        queue_computation(ctx.accounts, computation_offset, args, vec![], None)?;
+        Ok(())
+    }
+
+    #[arcium_callback(encrypted_ix = "bounty")]
+    pub fn bounty_callback(
+        ctx: Context<BountyCallback>,
+        output: ComputationOutputs<BountyOutput>,
+    ) -> Result<()> {
+        let o = match output {
+            ComputationOutputs::Success(BountyOutput { field_0 }) => field_0,
+            _ => return Err(ErrorCode::AbortedComputation.into()),
+        };
+
+        emit!(BountyEvent {
+            result: o.ciphertexts[0],
+            nonce: o.nonce.to_le_bytes()
+        });
+
+        Ok(())
+    }
 }
-
-#[arcium_callback(encrypted_ix = "bounty")]
-pub fn bounty_callback(
-    ctx: Context<BountyCallback>,
-    output: ComputationOutputs<BountyOutput>,
-) -> Result<()> {
-    let o = match output {
-        ComputationOutputs::Success(BountyOutput { field_0 }) => field_0,
-        _ => return Err(ErrorCode::AbortedComputation.into()),
-    };
-
-    emit!(BountyEvent { result: o.ciphertexts[0], nonce: o.nonce.to_le_bytes() });
-
-    Ok(())
-}
-
 #[queue_computation_accounts("bounty", payer)]
 #[derive(Accounts)]
 #[instruction(computation_offset: u64)]

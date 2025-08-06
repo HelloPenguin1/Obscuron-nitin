@@ -6,7 +6,8 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-mxe = "FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3"
+computebounty = "FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3"
+# computebounty = "programs/mxe"
 
 [registry]
 url = "https://api.apr.dev"
@@ -17,3 +18,96 @@ wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[test.validator]
+[[test.genesis]]
+address = "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+program = "/mnt/d/Web3_Projects/obscuron/mxe/artifacts/arcium_program_0.2.0.so"
+
+[[test.validator.account]]
+address = "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+filename = "artifacts/arcium_clock.json"
+
+[[test.validator.account]]
+address = "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+filename = "artifacts/arcium_fee_pool.json"
+
+[[test.validator.account]]
+address = "BoVUVSJAhob2cvM5z4JZTdS6VWRSznh3bbzQD1TFjvDP"
+filename = "artifacts/arx_mint.json"
+
+[[test.validator.account]]
+address = "yB81TGorCWsCbDa9BGjt7h9z5QWJwhoAiGrJBv2HVeC"
+filename = "artifacts/wallet_acc_yB81_HVeC.json"
+
+[[test.validator.account]]
+address = "DBtso4eJqo63KQMpw2pihnCiMDrPmbEhq2WMSDM8gDWA"
+filename = "artifacts/arx_ata_yB81_HVeC.json"
+
+[[test.validator.account]]
+address = "H6vQCocd2m7AGJDi2SM7PTTg5cvpCiSfRtTUdiAuR1bW"
+filename = "artifacts/wallet_acc_H6vQ_R1bW.json"
+
+[[test.validator.account]]
+address = "G6dXrkNdgCNLg3YPM2ih2AQ6jYazEgNat7M9gUGWBuD9"
+filename = "artifacts/arx_ata_H6vQ_R1bW.json"
+
+[[test.validator.account]]
+address = "9w6xXgJYrnjCHNRHDJahT5DTHpxpp8KzBG4L6wHCPkEa"
+filename = "artifacts/operator_acc_H6vQ_R1bW.json"
+
+[[test.validator.account]]
+address = "ELoRR19zrps1G3UYKcAxr7LKbw3kbqkVUXVY9dETMWN7"
+filename = "artifacts/arx_node_H6vQ_R1bW.json"
+
+[[test.validator.account]]
+address = "4S7twr7putFrcUnLQGab9kvWZdkGr5R7G7LUF2kf63P4"
+filename = "artifacts/wallet_acc_4S7t_63P4.json"
+
+[[test.validator.account]]
+address = "DrLteNZJf16xL4vt6ULD4U9c2BgoBm4bkzr1tMVsaDN4"
+filename = "artifacts/arx_ata_4S7t_63P4.json"
+
+[[test.validator.account]]
+address = "FP6bXs8TFVZdiUKmPricZqV3rySvt7WFatNF5hDrFVa3"
+filename = "artifacts/operator_acc_4S7t_63P4.json"
+
+[[test.validator.account]]
+address = "XdfSwb8ZajhN7CerfBSJVhyfx5fyLtv34QVKSRgMFA9"
+filename = "artifacts/arx_node_4S7t_63P4.json"
+
+[[test.validator.account]]
+address = "GgSqqAyH7AVY3Umcv8NvncrjFaNJuQLmxzxFxPoPW2Yd"
+filename = "artifacts/cluster_acc_0.json"
+
+[[test.validator.account]]
+address = "81FxEe7YCGiWf727ABbz14ZWYKPGKZCKqWDBh4J2uSRz"
+filename = "artifacts/add_together_raw_circuit_0.json"
+
+[[test.validator.account]]
+address = "B2YRzhm3qdVx2hNd1ZqNbeS9ise9vDWEY1LaePB2TNYa"
+filename = "artifacts/bounty_raw_circuit_0.json"
+
+[[test.validator.account]]
+address = "64RpDF28T4aTcxCcnedmXxg2WQD4Bdv4nXAwFcMRrXdz"
+filename = "artifacts/compute_bounty_raw_circuit_0.json"
+
+[[test.validator.account]]
+address = "6RuTPmvjim538XkVz4HFs6wqhkcTuQ7wR2TAjG2cAt43"
+filename = "artifacts/mxe_keygen_comp_def.json"
+
+[[test.validator.account]]
+address = "7Xw5tVR2z9D5xfSwCPzSRHxxPYHxZoRmaYY2Q6UfE3TY"
+filename = "artifacts/mxe_keygen_comp.json"
+
+[[test.validator.account]]
+address = "6L2XmJPihbHMPNHyp4haRoEtpJVacEUV526xcsSzp24f"
+filename = "artifacts/mxe_acc.json"
+
+[[test.validator.account]]
+address = "ECPNjv1xH4hKfGUq4WYsdoTkmnZ8ZjJa9FpXHoGAubPD"
+filename = "artifacts/mempool_acc.json"
+
+[[test.validator.account]]
+address = "HbHSkbJ1sPZAGVVCDSj8aXK3RXbrhhTVkWTuU2bfykmP"
+filename = "artifacts/executing_pool_acc.json"
