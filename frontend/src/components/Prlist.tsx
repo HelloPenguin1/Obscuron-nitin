@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "./hooks/use-outside-click";
 import { Bounty } from "./bounty";
+import { BountyApp } from "./BountyApp";
 
 export const CloseIcon = () => {
   return (
@@ -266,7 +267,8 @@ const Prlist = () => {
                 <span onClick={(e) => {
                   e.stopPropagation()
                 }}>
-                  <Bounty contributor={pr.contributor}/>
+                  {/* <Bounty contributor={pr.contributor}/> */}
+                  <BountyApp/>
                 </span>
               </div>
 

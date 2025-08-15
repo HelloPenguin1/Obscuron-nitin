@@ -280,13 +280,13 @@
   "errors": [
     {
       "code": 6000,
-      "name": "AbortedComputation",
-      "msg": "The computation was aborted"
+      "name": "InvalidFinalizeTx",
+      "msg": "Invalid finalize transaction"
     },
     {
       "code": 6001,
-      "name": "ClusterNotSet",
-      "msg": "The cluster is not set"
+      "name": "InvalidAccount",
+      "msg": "Invalid account"
     }
   ],
   "types": [
