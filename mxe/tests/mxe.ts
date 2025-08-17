@@ -20,6 +20,7 @@ import {
   x25519,
   getComputationAccAddress,
   getMXEPublicKey,
+  getClusterAccAddress,
 } from "@arcium-hq/client";
 import * as fs from "fs";
 import * as os from "os";
@@ -44,6 +45,7 @@ describe("Computebounty", () => {
   };
 
   const arciumEnv = getArciumEnv();
+  // const clusterAccount = getClusterAccAddress(3458519414);
 
   it("compute the bounty!", async () => {
     const owner = readKpJson(`${os.homedir()}/.config/solana/id.json`);
@@ -60,15 +62,16 @@ describe("Computebounty", () => {
     console.log(
       "Bounty computation definition initialized with signature",
       initBountySig
-    );
+    );                                  
 
     const privateKey = x25519.utils.randomPrivateKey();
     const publicKey = x25519.getPublicKey(privateKey);
     const sharedSecret = x25519.getSharedSecret(privateKey, mxePublicKey);
     const cipher = new RescueCipher(sharedSecret);
 
-    const choice = BigInt(true);
-    const plaintext = [choice];
+    const quality = BigInt(6);
+    const effort = BigInt(6);
+    const plaintext = [quality, effort];
 
     const nonce = randomBytes(16);
     const ciphertext = cipher.encrypt(plaintext, nonce);
@@ -91,6 +94,7 @@ describe("Computebounty", () => {
           computationOffset
         ),
         clusterAccount: arciumEnv.arciumClusterPubkey,
+        // clusterAccount: clusterAccount,
         mxeAccount: getMXEAccAddress(program.programId),
         mempoolAccount: getMempoolAccAddress(program.programId),
         executingPool: getExecutingPoolAccAddress(program.programId),

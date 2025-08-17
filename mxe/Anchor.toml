@@ -7,14 +7,13 @@ skip-lint = false
 
 [programs.localnet]
 computebounty = "FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3"
-# computebounty = "programs/mxe"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "/home/nitin/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
