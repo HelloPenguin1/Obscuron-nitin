@@ -178,12 +178,12 @@ const Prlist = () => {
               <div>
                 <div className="flex justify-between items-start p-4">
                   <div className="">
-                    <motion.h3
+                    <motion.h
                       layoutId={`title-${active.title}-${id}`}
                       className="font-bold text-neutral-700 dark:text-neutral-200"
                     >
                       {active.title}
-                    </motion.h3>
+                    </motion.h>
                     <motion.p
                       layoutId={`description-${active.description}-${id}`}
                       className="text-neutral-600 dark:text-neutral-400"
@@ -196,7 +196,7 @@ const Prlist = () => {
                     layoutId={`button-${active.title}-${id}`}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white"
+                    className="px-4 py-3 text-sm rounded-full font-bold bg-[#6C45FF] text-white"
                   >
                     {active.ctaText}
                   </motion.a>
@@ -226,7 +226,7 @@ const Prlist = () => {
               layoutId={`card-${pr.title}-${id}`}
               key={`card-${pr.title}-${id}`}
               onClick={() => setActive(pr)}
-              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-[#6C45FF] dark:hover:bg-[#6C45FF] rounded-xl cursor-pointer"
             >
               <div className="flex gap-4 flex-col md:flex-row ">
                 <motion.div layoutId={`image-${pr.title}-${id}`}>
@@ -256,7 +256,7 @@ const Prlist = () => {
               <div className="flex gap-2 mt-4 md:mt-0">
                 <motion.button
                   layoutId={`button-${pr.title}-${id}`}
-                  className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black"
+                  className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:text-[#6C45FF] text-black"
                   onClick={(e) => {
                     e.stopPropagation();
                     window.open(pr.ctaLink, "_blank");
@@ -267,8 +267,8 @@ const Prlist = () => {
                 <span onClick={(e) => {
                   e.stopPropagation()
                 }}>
-                  {/* <Bounty contributor={pr.contributor}/> */}
-                  <BountyApp/>
+                  <Bounty contributor={pr.contributor}/>
+                  {/* <BountyApp/> */}
                 </span>
               </div>
 

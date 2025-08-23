@@ -3,7 +3,7 @@ use arcium_anchor::prelude::*;
 
 const COMP_DEF_OFFSET_BOUNTY: u32 = comp_def_offset("bounty");
 
-declare_id!("FzcGDfci4AketBSehtWsvZAoE9k4Kd3ZZNar9nKn3gj3");
+declare_id!("GbF6THYTaqhtvWpMzVPrBJRS5sJUYV1143dTeGujhNuS");
 
 #[arcium_program]
 pub mod computebounty {

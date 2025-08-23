@@ -91,10 +91,10 @@ const Repositories = () => {
   }));
 
   return (
-    <div className="bg- min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]">
+    <div className="bg- min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#040404]">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-6xl font-extrabold text-center text-white mb-8 leading-tight">
-          Your <span className="text-blue-400">Repositories</span>
+          Your <span className="text-[#6C45FF]">Repositories</span>
         </h1>
         <p className="text-xl text-center text-gray-400 mb-16 max-w-3xl mx-auto">
           Explore your coding projects and jump right into their details, or create new ones.

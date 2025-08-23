@@ -147,7 +147,7 @@ export function Bounty({ onSubmit, contributor }: BountyProps) {
                             Cancel
                         </Button>
                     </DialogClose>
-                    <Button onClick={handleSubmit} className="bg-white text-black hover:bg-gray-200">
+                    <Button onClick={handleSubmit} className="bg-[#6C45FF] text-white hover:bg-[#6C45FF]">
                         Submit
                     </Button>
                 </DialogFooter>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar"
 import { Folders, HomeIcon, SidebarCloseIcon, SidebarOpenIcon } from "lucide-react";
 import { useAuth } from "./Layout";
-import { useNavigate } from "react-router-dom";
+import { Router, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import handleLogout from "../utils/handleLogout";
 
 const links = [
   {
@@ -36,6 +37,7 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
   const navigation = useNavigate();
   const wallet = useWallet();
   const { connection } = useConnection()
+  // const router = Router();
 
   useEffect(() => {
     if (!code && !auth?.authStatus) {
@@ -106,16 +108,21 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
                 <div className="absolute top-4 right-4 flex gap-2 bg-[#0A0A0A]">
                   {!wallet.publicKey && <WalletMultiButton className=" text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 text-sm" />}
                   {wallet.publicKey && <WalletDisconnectButton className=" text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 text-sm" />}
-                </div>
-                <div className="bg-primary w-full rounded-tl-[3rem]">
-                  {children}
-                </div>
+                  <button onClick={() => {
+                    handleLogout()
+                    auth?.setAuthStatus(null)
+                    // router.push("/")
+                  }}>Logout</button>
               </div>
-
+              <div className="bg-primary w-full rounded-tl-[3rem]">
+                {children}
+              </div>
             </div>
-          </WalletModalProvider>
-        </WalletProvider>
-      </ConnectionProvider>
+
+          </div>
+        </WalletModalProvider>
+      </WalletProvider>
+      </ConnectionProvider >
     )
   }
 }
