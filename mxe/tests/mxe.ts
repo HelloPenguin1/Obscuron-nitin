@@ -62,7 +62,7 @@ describe("Computebounty", () => {
     console.log(
       "Bounty computation definition initialized with signature",
       initBountySig
-    );                                  
+    );
 
     const privateKey = x25519.utils.randomPrivateKey();
     const publicKey = x25519.getPublicKey(privateKey);
@@ -113,11 +113,20 @@ describe("Computebounty", () => {
       "confirmed"
     );
     console.log("Finalize sig is ", finalizeSig);
-
     const bountyEvent = await bountyEventPromise;
 
-    if (bountyEvent.result) {
-      console.log(bountyEvent.result);
+    if (bountyEvent.result && bountyEvent.result.length > 0) {
+      console.log("Raw bounty result (number[]):", bountyEvent.result);
+
+      const ciphertext: number[][] = [bountyEvent.result];
+      // Convert nonce to Uint8Array
+      const nonce = new Uint8Array(bountyEvent.nonce);
+
+      // Decrypt using the same cipher and the correct nonce
+      const decryptedBounty = cipher.decrypt(ciphertext, nonce);
+
+      console.log("Decrypted bounty array:", decryptedBounty);
+      console.log("Computed bounty value:", decryptedBounty[0].toString());
     } else {
       console.log("Err fetching result");
     }
