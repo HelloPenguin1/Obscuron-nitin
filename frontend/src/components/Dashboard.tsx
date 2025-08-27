@@ -108,20 +108,22 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
                 <div className="absolute top-4 right-4 flex gap-2 bg-[#0A0A0A]">
                   {!wallet.publicKey && <WalletMultiButton className=" text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 text-sm" />}
                   {wallet.publicKey && <WalletDisconnectButton className=" text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 text-sm" />}
-                  <button onClick={() => {
-                    handleLogout()
-                    auth?.setAuthStatus(null)
-                    // router.push("/")
-                  }}>Logout</button>
+                  <button
+                    className="relative flex items-center justify-center gap-2 bg-black px-6 py-3 text-white font-medium transition-all duration-200 group-hover:bg-white group-hover:text-black"
+                    onClick={() => {
+                      handleLogout()
+                      auth?.setAuthStatus(null)
+                      // router.push("/")
+                    }}>Logout</button>
+                </div>
+                <div className="bg-primary w-full rounded-tl-[3rem]">
+                  {children}
+                </div>
               </div>
-              <div className="bg-primary w-full rounded-tl-[3rem]">
-                {children}
-              </div>
-            </div>
 
-          </div>
-        </WalletModalProvider>
-      </WalletProvider>
+            </div>
+          </WalletModalProvider>
+        </WalletProvider>
       </ConnectionProvider >
     )
   }

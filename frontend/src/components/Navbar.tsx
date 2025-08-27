@@ -12,18 +12,8 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-black">
-      <div className="max-w-7xl mx-auto px-6 py-1 lg:px-40">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo Section */}
-          <div className="flex items-center">
-            <img src="/logo.png" alt="Logo" className="h-24 w-24" />
-            <Link
-              to="/dashboard"
-              className="text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-200 flex items-center gap-3"
-            >
-              Obscuron
-            </Link>
-          </div>
+      <div className="max-w-7xl mx-auto px-2 py-1 lg:px-10">
+        <div className="flex items-center justify-end h-16">
           {/* Auth Button */}
           <div className="hidden md:block">
             <button

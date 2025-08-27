@@ -1,4 +1,10 @@
-{
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/computebounty.json`.
+ */
+export type Computebounty = {
   "address": "6MUHFNw3WeuDP1Gm1UZR1yUouN6nVYguBEHEF2vmw5Dt",
   "metadata": {
     "name": "computebounty",
@@ -26,48 +32,48 @@
           "signer": true
         },
         {
-          "name": "mxe_account"
+          "name": "mxeAccount"
         },
         {
-          "name": "mempool_account",
+          "name": "mempoolAccount",
           "writable": true
         },
         {
-          "name": "executing_pool",
+          "name": "executingPool",
           "writable": true
         },
         {
-          "name": "computation_account",
+          "name": "computationAccount",
           "writable": true
         },
         {
-          "name": "comp_def_account"
+          "name": "compDefAccount"
         },
         {
-          "name": "cluster_account",
+          "name": "clusterAccount",
           "writable": true
         },
         {
-          "name": "pool_account",
+          "name": "poolAccount",
           "writable": true,
           "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
         },
         {
-          "name": "clock_account",
+          "name": "clockAccount",
           "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         },
         {
-          "name": "arcium_program",
+          "name": "arciumProgram",
           "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
         }
       ],
       "args": [
         {
-          "name": "computation_offset",
+          "name": "computationOffset",
           "type": "u64"
         },
         {
@@ -89,7 +95,7 @@
           }
         },
         {
-          "name": "pub_key",
+          "name": "pubKey",
           "type": {
             "array": [
               "u8",
@@ -104,7 +110,7 @@
       ]
     },
     {
-      "name": "bounty_callback",
+      "name": "bountyCallback",
       "discriminator": [
         58,
         126,
@@ -122,14 +128,14 @@
           "signer": true
         },
         {
-          "name": "arcium_program",
+          "name": "arciumProgram",
           "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
         },
         {
-          "name": "comp_def_account"
+          "name": "compDefAccount"
         },
         {
-          "name": "instructions_sysvar",
+          "name": "instructionsSysvar",
           "address": "Sysvar1nstructions1111111111111111111111111"
         }
       ],
@@ -138,13 +144,13 @@
           "name": "output",
           "type": {
             "defined": {
-              "name": "ComputationOutputs",
+              "name": "computationOutputs",
               "generics": [
                 {
                   "kind": "type",
                   "type": {
                     "defined": {
-                      "name": "BountyOutput"
+                      "name": "bountyOutput"
                     }
                   }
                 }
@@ -155,7 +161,7 @@
       ]
     },
     {
-      "name": "init_bounty_comp_def",
+      "name": "initBountyCompDef",
       "discriminator": [
         107,
         159,
@@ -173,22 +179,22 @@
           "signer": true
         },
         {
-          "name": "mxe_account",
+          "name": "mxeAccount",
           "writable": true
         },
         {
-          "name": "comp_def_account",
+          "name": "compDefAccount",
           "docs": [
             "Can't check it here as it's not initialized yet."
           ],
           "writable": true
         },
         {
-          "name": "arcium_program",
+          "name": "arciumProgram",
           "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
@@ -197,7 +203,7 @@
   ],
   "accounts": [
     {
-      "name": "ClockAccount",
+      "name": "clockAccount",
       "discriminator": [
         152,
         171,
@@ -210,7 +216,7 @@
       ]
     },
     {
-      "name": "Cluster",
+      "name": "cluster",
       "discriminator": [
         236,
         225,
@@ -223,7 +229,7 @@
       ]
     },
     {
-      "name": "ComputationDefinitionAccount",
+      "name": "computationDefinitionAccount",
       "discriminator": [
         245,
         176,
@@ -236,7 +242,7 @@
       ]
     },
     {
-      "name": "FeePool",
+      "name": "feePool",
       "discriminator": [
         172,
         38,
@@ -249,7 +255,7 @@
       ]
     },
     {
-      "name": "MXEAccount",
+      "name": "mxeAccount",
       "discriminator": [
         103,
         26,
@@ -264,7 +270,7 @@
   ],
   "events": [
     {
-      "name": "BountyEvent",
+      "name": "bountyEvent",
       "discriminator": [
         98,
         22,
@@ -280,34 +286,34 @@
   "errors": [
     {
       "code": 6000,
-      "name": "AbortedComputation",
+      "name": "abortedComputation",
       "msg": "The computation was aborted"
     },
     {
       "code": 6001,
-      "name": "ClusterNotSet",
+      "name": "clusterNotSet",
       "msg": "The cluster is not set"
     }
   ],
   "types": [
     {
-      "name": "Activation",
+      "name": "activation",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "activation_epoch",
+            "name": "activationEpoch",
             "type": {
               "defined": {
-                "name": "Epoch"
+                "name": "epoch"
               }
             }
           },
           {
-            "name": "deactivation_epoch",
+            "name": "deactivationEpoch",
             "type": {
               "defined": {
-                "name": "Epoch"
+                "name": "epoch"
               }
             }
           }
@@ -315,7 +321,7 @@
       }
     },
     {
-      "name": "BountyEvent",
+      "name": "bountyEvent",
       "docs": [
         "Event emitted when amount calculated."
       ],
@@ -350,7 +356,7 @@
       }
     },
     {
-      "name": "BountyOutput",
+      "name": "bountyOutput",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -359,10 +365,10 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "field_0",
+            "name": "field0",
             "type": {
               "defined": {
-                "name": "SharedEncryptedStruct",
+                "name": "sharedEncryptedStruct",
                 "generics": [
                   {
                     "kind": "const",
@@ -376,36 +382,36 @@
       }
     },
     {
-      "name": "CircuitSource",
+      "name": "circuitSource",
       "type": {
         "kind": "enum",
         "variants": [
           {
-            "name": "Local",
+            "name": "local",
             "fields": [
               {
                 "defined": {
-                  "name": "LocalCircuitSource"
+                  "name": "localCircuitSource"
                 }
               }
             ]
           },
           {
-            "name": "OnChain",
+            "name": "onChain",
             "fields": [
               {
                 "defined": {
-                  "name": "OnChainCircuitSource"
+                  "name": "onChainCircuitSource"
                 }
               }
             ]
           },
           {
-            "name": "OffChain",
+            "name": "offChain",
             "fields": [
               {
                 "defined": {
-                  "name": "OffChainCircuitSource"
+                  "name": "offChainCircuitSource"
                 }
               }
             ]
@@ -414,7 +420,7 @@
       }
     },
     {
-      "name": "ClockAccount",
+      "name": "clockAccount",
       "docs": [
         "An account storing the current network epoch"
       ],
@@ -422,26 +428,26 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "start_epoch",
+            "name": "startEpoch",
             "type": {
               "defined": {
-                "name": "Epoch"
+                "name": "epoch"
               }
             }
           },
           {
-            "name": "current_epoch",
+            "name": "currentEpoch",
             "type": {
               "defined": {
-                "name": "Epoch"
+                "name": "epoch"
               }
             }
           },
           {
-            "name": "start_epoch_timestamp",
+            "name": "startEpochTimestamp",
             "type": {
               "defined": {
-                "name": "Timestamp"
+                "name": "timestamp"
               }
             }
           },
@@ -453,7 +459,7 @@
       }
     },
     {
-      "name": "Cluster",
+      "name": "cluster",
       "type": {
         "kind": "struct",
         "fields": [
@@ -464,27 +470,27 @@
             }
           },
           {
-            "name": "max_size",
+            "name": "maxSize",
             "type": "u32"
           },
           {
             "name": "activation",
             "type": {
               "defined": {
-                "name": "Activation"
+                "name": "activation"
               }
             }
           },
           {
-            "name": "max_capacity",
+            "name": "maxCapacity",
             "type": "u64"
           },
           {
-            "name": "cu_price",
+            "name": "cuPrice",
             "type": "u64"
           },
           {
-            "name": "cu_price_proposals",
+            "name": "cuPriceProposals",
             "type": {
               "array": [
                 "u64",
@@ -493,10 +499,10 @@
             }
           },
           {
-            "name": "last_updated_epoch",
+            "name": "lastUpdatedEpoch",
             "type": {
               "defined": {
-                "name": "Epoch"
+                "name": "epoch"
               }
             }
           },
@@ -511,17 +517,17 @@
             "type": {
               "vec": {
                 "defined": {
-                  "name": "NodeRef"
+                  "name": "nodeRef"
                 }
               }
             }
           },
           {
-            "name": "pending_nodes",
+            "name": "pendingNodes",
             "type": {
               "vec": {
                 "defined": {
-                  "name": "NodeRef"
+                  "name": "nodeRef"
                 }
               }
             }
@@ -534,7 +540,7 @@
       }
     },
     {
-      "name": "ComputationDefinitionAccount",
+      "name": "computationDefinitionAccount",
       "docs": [
         "An account representing a [ComputationDefinition] in a MXE."
       ],
@@ -542,32 +548,32 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "finalization_authority",
+            "name": "finalizationAuthority",
             "type": {
               "option": "pubkey"
             }
           },
           {
-            "name": "finalize_during_callback",
+            "name": "finalizeDuringCallback",
             "type": "bool"
           },
           {
-            "name": "cu_amount",
+            "name": "cuAmount",
             "type": "u64"
           },
           {
             "name": "definition",
             "type": {
               "defined": {
-                "name": "ComputationDefinitionMeta"
+                "name": "computationDefinitionMeta"
               }
             }
           },
           {
-            "name": "circuit_source",
+            "name": "circuitSource",
             "type": {
               "defined": {
-                "name": "CircuitSource"
+                "name": "circuitSource"
               }
             }
           },
@@ -579,7 +585,7 @@
       }
     },
     {
-      "name": "ComputationDefinitionMeta",
+      "name": "computationDefinitionMeta",
       "docs": [
         "A computation definition for execution in a MXE."
       ],
@@ -587,19 +593,19 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "circuit_len",
+            "name": "circuitLen",
             "type": "u32"
           },
           {
             "name": "signature",
             "type": {
               "defined": {
-                "name": "ComputationSignature"
+                "name": "computationSignature"
               }
             }
           },
           {
-            "name": "callback_discriminator",
+            "name": "callbackDiscriminator",
             "type": {
               "array": [
                 "u8",
@@ -611,32 +617,32 @@
       }
     },
     {
-      "name": "ComputationOutputs",
+      "name": "computationOutputs",
       "generics": [
         {
           "kind": "type",
-          "name": "O"
+          "name": "o"
         }
       ],
       "type": {
         "kind": "enum",
         "variants": [
           {
-            "name": "Success",
+            "name": "success",
             "fields": [
               {
-                "generic": "O"
+                "generic": "o"
               }
             ]
           },
           {
-            "name": "Failure"
+            "name": "failure"
           }
         ]
       }
     },
     {
-      "name": "ComputationSignature",
+      "name": "computationSignature",
       "docs": [
         "The signature of a computation defined in a [ComputationDefinition]."
       ],
@@ -648,7 +654,7 @@
             "type": {
               "vec": {
                 "defined": {
-                  "name": "Parameter"
+                  "name": "parameter"
                 }
               }
             }
@@ -658,7 +664,7 @@
             "type": {
               "vec": {
                 "defined": {
-                  "name": "Output"
+                  "name": "output"
                 }
               }
             }
@@ -667,7 +673,7 @@
       }
     },
     {
-      "name": "Epoch",
+      "name": "epoch",
       "docs": [
         "The network epoch"
       ],
@@ -679,7 +685,7 @@
       }
     },
     {
-      "name": "FeePool",
+      "name": "feePool",
       "type": {
         "kind": "struct",
         "fields": [
@@ -691,18 +697,18 @@
       }
     },
     {
-      "name": "LocalCircuitSource",
+      "name": "localCircuitSource",
       "type": {
         "kind": "enum",
         "variants": [
           {
-            "name": "MxeKeygen"
+            "name": "mxeKeygen"
           }
         ]
       }
     },
     {
-      "name": "MXEAccount",
+      "name": "mxeAccount",
       "docs": [
         "A MPC Execution Environment."
       ],
@@ -722,27 +728,27 @@
             }
           },
           {
-            "name": "x25519_pubkey",
+            "name": "x25519Pubkey",
             "type": {
               "defined": {
-                "name": "X25519Pubkey"
+                "name": "x25519Pubkey"
               }
             }
           },
           {
-            "name": "fallback_clusters",
+            "name": "fallbackClusters",
             "type": {
               "vec": "u32"
             }
           },
           {
-            "name": "rejected_clusters",
+            "name": "rejectedClusters",
             "type": {
               "vec": "u32"
             }
           },
           {
-            "name": "computation_definitions",
+            "name": "computationDefinitions",
             "type": {
               "vec": "u32"
             }
@@ -755,7 +761,7 @@
       }
     },
     {
-      "name": "NodeRef",
+      "name": "nodeRef",
       "docs": [
         "A reference to a node in the cluster.",
         "The offset is to derive the Node Account.",
@@ -770,7 +776,7 @@
             "type": "u32"
           },
           {
-            "name": "current_total_rewards",
+            "name": "currentTotalRewards",
             "type": "u64"
           },
           {
@@ -781,7 +787,7 @@
       }
     },
     {
-      "name": "OffChainCircuitSource",
+      "name": "offChainCircuitSource",
       "type": {
         "kind": "struct",
         "fields": [
@@ -802,23 +808,23 @@
       }
     },
     {
-      "name": "OnChainCircuitSource",
+      "name": "onChainCircuitSource",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "is_completed",
+            "name": "isCompleted",
             "type": "bool"
           },
           {
-            "name": "upload_auth",
+            "name": "uploadAuth",
             "type": "pubkey"
           }
         ]
       }
     },
     {
-      "name": "Output",
+      "name": "output",
       "docs": [
         "An output of a computation.",
         "We currently don't support encrypted outputs yet since encrypted values are passed via",
@@ -828,37 +834,37 @@
         "kind": "enum",
         "variants": [
           {
-            "name": "PlaintextBool"
+            "name": "plaintextBool"
           },
           {
-            "name": "PlaintextU8"
+            "name": "plaintextU8"
           },
           {
-            "name": "PlaintextU16"
+            "name": "plaintextU16"
           },
           {
-            "name": "PlaintextU32"
+            "name": "plaintextU32"
           },
           {
-            "name": "PlaintextU64"
+            "name": "plaintextU64"
           },
           {
-            "name": "PlaintextU128"
+            "name": "plaintextU128"
           },
           {
-            "name": "Ciphertext"
+            "name": "ciphertext"
           },
           {
-            "name": "ArcisPubkey"
+            "name": "arcisPubkey"
           },
           {
-            "name": "PlaintextFloat"
+            "name": "plaintextFloat"
           }
         ]
       }
     },
     {
-      "name": "Parameter",
+      "name": "parameter",
       "docs": [
         "A parameter of a computation.",
         "We differentiate between plaintext and encrypted parameters and data objects.",
@@ -870,50 +876,50 @@
         "kind": "enum",
         "variants": [
           {
-            "name": "PlaintextBool"
+            "name": "plaintextBool"
           },
           {
-            "name": "PlaintextU8"
+            "name": "plaintextU8"
           },
           {
-            "name": "PlaintextU16"
+            "name": "plaintextU16"
           },
           {
-            "name": "PlaintextU32"
+            "name": "plaintextU32"
           },
           {
-            "name": "PlaintextU64"
+            "name": "plaintextU64"
           },
           {
-            "name": "PlaintextU128"
+            "name": "plaintextU128"
           },
           {
-            "name": "Ciphertext"
+            "name": "ciphertext"
           },
           {
-            "name": "ArcisPubkey"
+            "name": "arcisPubkey"
           },
           {
-            "name": "ArcisSignature"
+            "name": "arcisSignature"
           },
           {
-            "name": "PlaintextFloat"
+            "name": "plaintextFloat"
           },
           {
-            "name": "ManticoreAlgo"
+            "name": "manticoreAlgo"
           },
           {
-            "name": "InputDataset"
+            "name": "inputDataset"
           }
         ]
       }
     },
     {
-      "name": "SharedEncryptedStruct",
+      "name": "sharedEncryptedStruct",
       "generics": [
         {
           "kind": "const",
-          "name": "LEN",
+          "name": "len",
           "type": "usize"
         }
       ],
@@ -921,7 +927,7 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "encryption_key",
+            "name": "encryptionKey",
             "type": {
               "array": [
                 "u8",
@@ -944,7 +950,7 @@
                   ]
                 },
                 {
-                  "generic": "LEN"
+                  "generic": "len"
                 }
               ]
             }
@@ -953,7 +959,7 @@
       }
     },
     {
-      "name": "Timestamp",
+      "name": "timestamp",
       "type": {
         "kind": "struct",
         "fields": [
@@ -965,12 +971,12 @@
       }
     },
     {
-      "name": "X25519Pubkey",
+      "name": "x25519Pubkey",
       "type": {
         "kind": "enum",
         "variants": [
           {
-            "name": "Set",
+            "name": "set",
             "fields": [
               {
                 "array": [
@@ -981,7 +987,7 @@
             ]
           },
           {
-            "name": "Unset",
+            "name": "unset",
             "fields": [
               {
                 "array": [
@@ -998,4 +1004,4 @@
       }
     }
   ]
-}
+};
