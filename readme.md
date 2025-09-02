@@ -1,5 +1,7 @@
 # 🔐 Encrypted GitHub Bounty Dispenser
 
+fork by soham
+
 This project is built as part of the **Arcium Fellowship**, with the goal of creating a privacy-preserving bounty distribution system for open-source contributions using **Arcium's gMPC stack** and **Solana**.
 
 Maintainers can securely score pull requests and compute contributor rewards based on encrypted inputs—ensuring fairness and transparency without revealing sensitive scoring data.
